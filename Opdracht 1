@@ -1,0 +1,87 @@
+/*
+ * Rick Deurloo
+ */
+ 
+void setup()
+{
+  pinMode(1, OUTPUT); //Geeft aan welke poortje gebruikt word als output.
+  pinMode(2, OUTPUT);
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  pinMode(7, OUTPUT);
+  pinMode(8, OUTPUT);
+}
+ 
+void loop()
+{
+  digitalWrite(1, HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(1, LOW);
+ 
+  //lampje 2 gaat aan 
+  digitalWrite(2, HIGH);
+  delay(500); // 
+  digitalWrite(2,LOW);
+ 
+  //lampje 3 gaat aan
+  digitalWrite(3,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(3 ,LOW);
+  //lampje 4 gaat aan
+  digitalWrite(4,HIGH);
+  delay(500);// wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(4 ,LOW);
+  //lampje 5 gaat aan
+  digitalWrite(5,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(5 ,LOW);
+  //lampje 6 gaat aan
+    digitalWrite(6,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(6 ,LOW);
+  //lampje 7 gaan aan
+    digitalWrite(7,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(7 ,LOW);
+  //lampje 8 gaat aan
+   digitalWrite(8,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(8 ,LOW);
+ 
+  delay(1000); // wacht 1 seconden om het zelfde rondje opnieuw te doen maar nu achterste voren.
+ 
+  //lampje 8 gaat nu aan en dan zal het zelfde rondje weer beginnen.
+   digitalWrite(8,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(8 ,LOW);
+ 
+      digitalWrite(7,HIGH);
+  delay(500);// wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(7 ,LOW);
+ 
+      digitalWrite(6,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(6 ,LOW);
+ 
+    digitalWrite(5,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(5 ,LOW);
+ 
+    digitalWrite(4,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(4 ,LOW);
+ 
+    digitalWrite(3,HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(3 ,LOW);
+ 
+    digitalWrite(2, HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(2,LOW);
+ 
+    digitalWrite(1, HIGH);
+  delay(500); // wacht 0.5 seconden om weer uit te gaan.
+  digitalWrite(1, LOW);
+}
