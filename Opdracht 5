@@ -21,7 +21,7 @@ int GroenValue;
 int BlauwValue; 
  
 void loop() { 
-    #define WachtTijd 7 //Wait time 
+    #define WachtTijd 7 //zet de wachttijd op 7.
    
     RoodValue = 255; 
     GroenValue = 0;
