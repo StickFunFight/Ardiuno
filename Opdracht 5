@@ -1,0 +1,69 @@
+//Rick Deurloo
+
+//Benoem de verschillende pins.
+#define Blauw 11 
+#define Groen 10 
+#define Rood 9
+ 
+void setup() { 
+    pinMode(Rood, OUTPUT); 
+    pinMode(Groen, OUTPUT); 
+    pinMode(Blauw, OUTPUT);  
+ 
+    digitalWrite(Rood, HIGH);  //Rood LED ON 
+    digitalWrite(Groen, LOW); //Groen LED OFF 
+    digitalWrite(Blauw, LOW);  //Blauw LED OFF
+} 
+ 
+//Maak de variablen aan.
+int RoodValue; 
+int GroenValue; 
+int BlauwValue; 
+ 
+void loop() { 
+    #define WachtTijd 7 //Wait time 
+   
+    RoodValue = 255; 
+    GroenValue = 0;
+    BlauwValue = 0; 
+
+ //Zet de rode value van 255 naar 0.
+    for(int i = 0; i < 255; i++) { 
+        RoodValue = RoodValue - 1;  
+        GroenValue = GroenValue + 1;
+        
+        analogWrite(Rood, RoodValue); 
+        analogWrite(Groen, GroenValue); 
+       
+        delay(WachtTijd);
+    } 
+ 
+    RoodValue = 0; 
+    GroenValue = 255; 
+    BlauwValue = 0;
+ //Zet de Groene value van 255 naar 0.
+    for(int i = 0; i < 255; i++) { 
+        GroenValue = GroenValue - 1;
+        BlauwValue = BlauwValue + 1;
+ 
+        analogWrite(Groen, GroenValue);
+        analogWrite(Blauw, BlauwValue); 
+ 
+        delay(WachtTijd);
+    } 
+ 
+    RoodValue = 0;
+    GroenValue = 0; 
+    BlauwValue = 255;
+ 
+ //Zet de Blauw value van 255 naar 0.
+    for(int i = 0; i < 255; i++) { 
+        BlauwValue = BlauwValue - 1;
+        RoodValue = RoodValue + 1;
+ 
+        analogWrite(Blauw, BlauwValue);
+        analogWrite(Rood, RoodValue); 
+ 
+        delay(WachtTijd);
+    } 
+}
