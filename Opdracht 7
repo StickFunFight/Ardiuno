@@ -1,0 +1,51 @@
+#include<Servo.h>
+
+const int TrigPin = 12;
+const int EchoPin = 8;
+
+Servo MijnServo;
+int Positie =0;
+
+float Tijdsduur;
+float Afstand;
+
+    void setup() {
+//Voeg de servo toe op poort 11
+  MijnServo.attach(11);     
+  Serial.begin(9600);
+  pinMode(TrigPin, OUTPUT);
+  pinMode(EchoPin, INPUT);
+    }
+    
+    void loop() {
+    digitalWrite(TrigPin, LOW);
+    delayMicroseconds(2);
+
+    digitalWrite(TrigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(TrigPin , LOW);
+
+    Tijdsduur = pulseIn(EchoPin,HIGH);
+
+    Afstand = Tijdsduur / 58;
+    Serial.print(Afstand);
+    Serial.println("cm");
+    delay(100);
+
+if (Afstand <= 10 && Afstand >= 4)
+  { 
+    int PosAf = map(Afstand, 4, 10, 180, 0);
+
+    MijnServo.write(PosAf);
+    delay(20);
+
+  
+
+}
+
+    }
+
+
+    
+    
+    
