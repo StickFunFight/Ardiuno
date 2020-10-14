@@ -1,3 +1,4 @@
+//Rick Deurloo
 #include<Servo.h>
 
 const int TrigPin = 12;
@@ -19,23 +20,24 @@ float Afstand;
     
     void loop() {
     digitalWrite(TrigPin, LOW);
-    delayMicroseconds(2);
+    delay(100);
 
     digitalWrite(TrigPin, HIGH);
-    delayMicroseconds(10);
+    delay(100);
     digitalWrite(TrigPin , LOW);
-
+//schrijft de tijdsduur naar het float tijdsduur.
     Tijdsduur = pulseIn(EchoPin,HIGH);
-
+//tijdsduur door 58 delen dan heb je de afstand in cm.
     Afstand = Tijdsduur / 58;
     Serial.print(Afstand);
     Serial.println("cm");
     delay(100);
-
+//als de afstand tussen 10 en 4 is.
 if (Afstand <= 10 && Afstand >= 4)
   { 
+  //tussen de 10 en 4 cm pakt tie een waarde van 180 tot 0.
     int PosAf = map(Afstand, 4, 10, 180, 0);
-
+//schrijft die positie naar de servo
     MijnServo.write(PosAf);
     delay(20);
 
