@@ -1,3 +1,4 @@
+//Rick Deurloo
 const int potmeterPin = A5;
 const int ledPin =10;
 const int ledPin2 =11;
@@ -7,6 +8,7 @@ const int ledPin5 =9;
 const int ledPin6 =8;
 const int ledPin7 =7;
 int potmeterWaarde=0;
+//Geef alle ledjes aan.
 
 void setup(){
 pinMode(ledPin, OUTPUT);
@@ -20,8 +22,10 @@ pinMode(ledPin7, OUTPUT);
 
 void loop()
 {
+//zet de waarde van de potmeter van 0 tot 1000
  potmeterWaarde = analogRead(potmeterPin), 0 , 1000;
-
+ 
+//als de waarde boven de 100 komt dan gaat het eerste ledje aan. dit geldt zo voor elk ledje in stappen van 100
 if(potmeterWaarde > 100){
   digitalWrite(ledPin,HIGH);
 }
@@ -45,16 +49,14 @@ if(potmeterWaarde > 700){
 }
 
 delay(500);
- 
-   digitalWrite(ledPin,LOW);
-   digitalWrite(ledPin2,LOW);
-   digitalWrite(ledPin3,LOW);
+ //zet alle ledjes uit.
+digitalWrite(ledPin,LOW);
+digitalWrite(ledPin2,LOW);
+digitalWrite(ledPin3,LOW);
 digitalWrite(ledPin4,LOW);
 digitalWrite(ledPin5,LOW);
 digitalWrite(ledPin6,LOW);
 digitalWrite(ledPin7,LOW);
-// delay(potmeterWaarde);
-// digitalWrite(ledPin, LOW);
-//  delay(potmeterWaarde);
+
   
 }
