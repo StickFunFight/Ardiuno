@@ -1,0 +1,20 @@
+//Rick Deurloo
+const int temp = A5; //zet de poort op A5 voor het tempratuur dingetje.
+      float Tempratuur = 0; // zet tempratuur op 0;
+ 
+void setup(){
+Serial.begin(9600); //serial beginnen
+}
+ 
+void loop(){
+ 
+   Tempratuur = analogRead(temp);
+  //formule  voor tempratuur bereken,
+   Tempratuur = Tempratuur * 0.48828125;
+  
+   Serial.print("teperatuur = ");
+   Serial.print(Tempratuur); // zet de tempratuur op de seriele monitor.
+   Serial.print("*C");
+   Serial.println();
+   delay(500); 
+}
