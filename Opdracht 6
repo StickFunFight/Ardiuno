@@ -1,0 +1,61 @@
+//Rick Deurloo
+#include <Servo.h>
+
+Servo myservo;
+
+const int Button1 = 6;
+const int Button2 = 7;
+int buttonState1 = 0;
+int buttonState2= 0;
+int angle;
+//elke 0.83 seconden.
+const int incrementDelay = 0.83;
+
+
+void setup()
+{
+  myservo.attach(5);
+  pinMode(Button1, INPUT);   
+  pinMode(Button2, INPUT);     
+}
+
+void loop()
+{
+  buttonState1 = digitalRead(Button1);
+  buttonState2 = digitalRead(Button2);
+//als button 1 in gedrukt is voer code uit.
+  if (buttonState1 == HIGH) {   
+    //zet de gradne op 1.
+    int angleIncrement = 1;
+    //als de hoek kleiner is dan 120 tel de angleincrement er bij op .
+    for (angle = 0; angle < 120; angle += angleIncrement) { 
+ myservo.write (angle);
+ delay (incrementDelay); // elke 0.83ms draait de servo 1 graden
+}   
+    }
+
+  else if (buttonState2 == HIGH){
+    //zet de graden op 2.
+    int angleIncrement = 2;
+    /als de hoek kleiner is dan 120 tel de angleincrement er bij op .
+  for (angle = 0; angle < 120; angle += angleIncrement) { 
+ myservo.write (angle);// elke 0.83ms draait de servo 2 graden
+ delay (incrementDelay);
+  }
+}
+//als de 
+  else if (buttonState2 == HIGH && buttonState1 == HIGH){
+    int angleIncrement = 2;
+    //als de hoek kleiner is dan 120 tel de angleincrement er bij op .
+  for (angle = 0; angle < 120; angle += angleIncrement) { 
+ myservo.write (angle);// elke 0.83ms draait de servo 2 graden
+ delay (2000);
+  }
+}
+  
+  else{
+   myservo.write(0);
+  }
+  
+  delay(15);
+}
