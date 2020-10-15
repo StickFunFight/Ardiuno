@@ -8,7 +8,7 @@ const int Button2 = 7;
 int buttonState1 = 0;
 int buttonState2= 0;
 int angle;
-//elke 0.83 seconden.
+//zet de waarde op 0.83 seconden.
 const int incrementDelay = 0.83;
 
 
@@ -25,7 +25,7 @@ void loop()
   buttonState2 = digitalRead(Button2);
 //als button 1 in gedrukt is voer code uit.
   if (buttonState1 == HIGH) {   
-    //zet de gradne op 1.
+    //zet de graden op 1.
     int angleIncrement = 1;
     //als de hoek kleiner is dan 120 tel de angleincrement er bij op .
     for (angle = 0; angle < 120; angle += angleIncrement) { 
