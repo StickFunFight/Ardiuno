@@ -1,30 +1,30 @@
 /*
- * Rick Deurloo
- */
-const int ledPin= 11;
+   Rick Deurloo
+*/
+const int ledPin = 11;
 const int knopPin = 2;
 int ledStatus = LOW;     // zet de status van de led op uit.
 int vorigeKnopStatus;    // de vorige stauts van de knop.
 int huidigeKnopStatus; // de huidige status van de knop.
- 
- 
+
+
 void setup()
 {
   pinMode(ledPin, OUTPUT);
   pinMode(knopPin, INPUT);
   //vult de variable met de huidige status van het knopje
- huidigeKnopStatus = digitalRead(knopPin);
+  huidigeKnopStatus = digitalRead(knopPin);
 }
- 
+
 void loop()
 {
-vorigeKnopStatus  = huidigeKnopStatus;      // vult de variable met de huidige status zodat deze gebruikt kan worden
+  vorigeKnopStatus  = huidigeKnopStatus;      // vult de variable met de huidige status zodat deze gebruikt kan worden
   huidigeKnopStatus = digitalRead(knopPin); // haal de nieuwe status op.
-//als de vorige knop status aan was en de huidige laag
-  if(vorigeKnopStatus == HIGH && huidigeKnopStatus == LOW) {
+  //als de vorige knop status aan was en de huidige laag
+  if (vorigeKnopStatus == HIGH && huidigeKnopStatus == LOW) {
     // zet de led status naar aan of uit. altijd het om gedraaide van wat er eerst stond dit geef je aan door de !.
     ledStatus = !ledStatus;
- 
-    digitalWrite(ledPin, ledStatus); 
+
+    digitalWrite(ledPin, ledStatus);
   }
 }
