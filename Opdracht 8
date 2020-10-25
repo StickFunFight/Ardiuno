@@ -11,26 +11,23 @@ int Onthouden1 = 0;
 int Onthouden2 = 0;
 unsigned long VorigeKnipper = 0;
 
-//Ledjepins en IR Sensor koppelen aan hun poort
-int ledPin13 = 2;
-int ledPin12 = 3;
-int ledPin10 = 4;
-int ledPin9 = 5;
-int IR = 11;
+int ledPin13 = 13;
+int ledPin12 = 12;
+int ledPin10 = 10;
+int ledPin9 = 9;
+int IR = 7;
+
 IRrecv irrecv(IR);
 
-//Knoppen 1tm4 van afstandsbediening defineren
 long int Knopje1 = 16582903;
 long int Knopje2 = 16615543;
 long int Knopje3 = 16599223;
 long int Knopje4 = 16591063;
 
 void setup() {
-  //Seriele communicatie en de IR Sensor starten
   Serial.begin(9600);
   irrecv.enableIRIn();
 
-  //Aangeven dat ledjes ene output moeten geven
   pinMode (ledPin13, OUTPUT);
   pinMode (ledPin12, OUTPUT);
   pinMode (ledPin10, OUTPUT);
@@ -45,15 +42,14 @@ void loop() {
   int StatusPin10 = digitalRead(ledPin10);
   int StatusPin9 = digitalRead(ledPin9);
 
-  //Wanneer de IR Sensor een signaal binnenkrijgt print die dit signaal uit en gaat die verder met signalen zoeken
   if (irrecv.decode(&results)) {
     Serial.println(results.value);
     irrecv.resume();
 
-    //Als ICounter < 2 voor deze code uit:
+    //Als de teller kleiner is dan 2 word deze code uitgevoerd.
     if (ICounter < 2) {
 
-      //Als knop 1,2,3 of 4 wordt ingedrukt voer dan de functie Onthouden uit een geef de bijbehorende waarde mee (ledPin13, ledPin12, ledPin10, ledPin9)
+      //Slaat de ingedrukte knop op in onthouden.
 
       if (results.value == Knopje1 && StatusPin13 == LOW) {
         Onthouden(ledPin13);
@@ -74,10 +70,10 @@ void loop() {
 
   }
 
-  //Als ICounter = 2 voor deze code uit:
+  Als de teller kleiner is dan 2 word deze code uitgevoerd.
   if (ICounter == 2) {
 
-    //Als knop 1,2,3 of 4 wordt ingedrukt voor dan de functie knipper uit en geef de bijbehorende waarde mee (100, 200, 300, 400)
+    //Zet de ingedrukte knop + zijn waarde in de knipper functie.
 
     if (results.value == Knopje1) {
       knipper(100);
@@ -98,50 +94,42 @@ void loop() {
 }
 
 
-// Functie die onthoudt welke 2 knoppen als eerst zijn ingedrukt en daarmee de bijbehorende LEDS onthoudt
-// Vul de meegestuurde variabele in (ledPin13, ledPin12, ledPin10, ledPin9)
+//Functie waar de opgeslagen ledjes naar toe gestuurd worden.
 void Onthouden(int Ledje) {
   //Zet de meegestuurde Ledje op HIGH
   digitalWrite(Ledje, HIGH);
 
-  //Als de waarde van Onthouden1 nog leeg is voer dan deze code uit
+
   if (Onthouden1 == 0) {
-    //Verander de waarde van Onthouden1 naar de meegestuurde Ledje en doe +1 bij ICounter
+    //vult onthouden1 met het mee gestuurde ledje zolang de variable maar leeg is.
     Onthouden1 = Ledje;
     ICounter++;
   }
 
-  //Als de waarde van Onthouden1 gevuld is voer dan deze code uit
+  //Is onthouden 1 wel gevuld word deze code uitgevoerd
   else {
-    //Verander de waarde van Onthouden2 naar de meegestuurde Ledje en doe +1 bij ICounter
+    //het zelfde als hierboven maar dan voor onthouden2
     Onthouden2 = Ledje;
     ICounter++;
   }
 }
 
-//Functie die de knippertijd aanpast mbv millis
 void knipper(int knipperTijd) {
 
-  //Variabele aanmaken voor de huidigeTijd en vullen met de millis functie
+  //geeft aan hoelang de applicatie al draait in millis
   unsigned long huidigeTijd = millis();
-  //Status van meegestuurde iGeheugen 1 & 2 invullen
   int active1 = digitalRead(Onthouden1);
   int active2 = digitalRead(Onthouden2);
 
-  //Als de huidigeTijd - VorigeKnipper >= knippertijd voer deze code uit
-  //Je wacht tot de millis functie de tijd heeft bereikt die gelijk is aan de meegegeven knipperTijd waarde
+  //Als de huidigetijnd - de vorige tijd groter is of gelijk aan knipper tijd dan vul je vorige knipper in huidigetijd.
   if (huidigeTijd - VorigeKnipper >= knipperTijd) {
     VorigeKnipper = huidigeTijd;
 
-    //Voer deze code uit als active1 en active2 allebei LOW zijn
     if (active1 == LOW && active2 == LOW) {
-      //Zet beide LedjeS aan
       digitalWrite(Onthouden1, HIGH);
       digitalWrite(Onthouden2, HIGH);
     }
-    //Anders voer je deze code uit
     else {
-      //Zet beide LedjeS uit
       digitalWrite(Onthouden1, LOW);
       digitalWrite(Onthouden2, LOW);
     }
