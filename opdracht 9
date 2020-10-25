@@ -1,6 +1,6 @@
 //Rick Deurloo
-char Incoming_value = 0;   
-int led11 =4;
+char Incoming_value = 0;
+int led11 = 4;
 int led8 = 3;
 int led5 = 2;
 
@@ -12,39 +12,39 @@ void setup() {
 }
 void loop()
 {
-//zodra de inkomende variable groter dan 0 is.
-  if(Serial.available() > 0)  
+  //zodra de inkomende variable groter dan 0 is.
+  if (Serial.available() > 0)
   {
     Incoming_value = Serial.read();      //leest de waarde uit en zet het in de variable
     Serial.print(Incoming_value);        //zet het in de seriele monitor.
-    Serial.print("\n");       
+    Serial.print("\n");
 
   }
-    if(Incoming_value == '1')  {          //kijkt of het getal dat binnen komt 1 is zo ja:
-      
-      digitalWrite(led5, LOW);
-      digitalWrite(led8, HIGH);
-      delay(6000);
+  if (Incoming_value == '1')  {         //kijkt of het getal dat binnen komt 1 is zo ja:
 
-      digitalWrite(led8, LOW);
-      digitalWrite(led11, HIGH);
-      delay(1200);
+    digitalWrite(led5, LOW);
+    digitalWrite(led8, HIGH);
+    delay(6000);
 
-      digitalWrite(led11, LOW);
-      digitalWrite(led5, HIGH);
-      delay(1200);
+    digitalWrite(led8, LOW);
+    digitalWrite(led11, HIGH);
+    delay(1200);
 
-    }
-      
-    else {
+    digitalWrite(led11, LOW);
+    digitalWrite(led5, HIGH);
+    delay(1200);
+
+  }
+
+  else {
     //zet alle ledjes terug op uit.
-          digitalWrite(led11, LOW);
-          digitalWrite(led5, LOW);
-          digitalWrite(led8, LOW);
-          digitalWrite(led8, HIGH);
-          delay(1000);
-          digitalWrite(led8, LOW);
-          delay(1000);
-    } 
+    digitalWrite(led11, LOW);
+    digitalWrite(led5, LOW);
+    digitalWrite(led8, LOW);
+    digitalWrite(led8, HIGH);
+    delay(1000);
+    digitalWrite(led8, LOW);
+    delay(1000);
+  }
 
 }
