@@ -1,0 +1,149 @@
+/*
+   Rick Deurloo
+*/
+
+//Voeg de library toe.
+#include<IRremote.h>
+
+decode_results results;
+int ICounter = 0;
+int Onthouden1 = 0;
+int Onthouden2 = 0;
+unsigned long VorigeKnipper = 0;
+
+//Ledjepins en IR Sensor koppelen aan hun poort
+int ledPin13 = 2;
+int ledPin12 = 3;
+int ledPin10 = 4;
+int ledPin9 = 5;
+int IR = 11;
+IRrecv irrecv(IR);
+
+//Knoppen 1tm4 van afstandsbediening defineren
+long int Knopje1 = 16582903;
+long int Knopje2 = 16615543;
+long int Knopje3 = 16599223;
+long int Knopje4 = 16591063;
+
+void setup() {
+  //Seriele communicatie en de IR Sensor starten
+  Serial.begin(9600);
+  irrecv.enableIRIn();
+
+  //Aangeven dat ledjes ene output moeten geven
+  pinMode (ledPin13, OUTPUT);
+  pinMode (ledPin12, OUTPUT);
+  pinMode (ledPin10, OUTPUT);
+  pinMode (ledPin9, OUTPUT);
+}
+
+void loop() {
+
+  //Status van de LEDS ophalen
+  int StatusPin13 = digitalRead(ledPin13);
+  int StatusPin12 = digitalRead(ledPin12);
+  int StatusPin10 = digitalRead(ledPin10);
+  int StatusPin9 = digitalRead(ledPin9);
+
+  //Wanneer de IR Sensor een signaal binnenkrijgt print die dit signaal uit en gaat die verder met signalen zoeken
+  if (irrecv.decode(&results)) {
+    Serial.println(results.value);
+    irrecv.resume();
+
+    //Als ICounter < 2 voor deze code uit:
+    if (ICounter < 2) {
+
+      //Als knop 1,2,3 of 4 wordt ingedrukt voer dan de functie Onthouden uit een geef de bijbehorende waarde mee (ledPin13, ledPin12, ledPin10, ledPin9)
+
+      if (results.value == Knopje1 && StatusPin13 == LOW) {
+        Onthouden(ledPin13);
+      }
+
+      else if (results.value == Knopje2 && StatusPin12 == LOW) {
+        Onthouden(ledPin12);
+      }
+
+      else if (results.value == Knopje3 && StatusPin10 == LOW) {
+        Onthouden(ledPin10);
+      }
+
+      else if (results.value == Knopje4 && StatusPin9 == LOW) {
+        Onthouden(ledPin9);
+      }
+    }
+
+  }
+
+  //Als ICounter = 2 voor deze code uit:
+  if (ICounter == 2) {
+
+    //Als knop 1,2,3 of 4 wordt ingedrukt voor dan de functie knipper uit en geef de bijbehorende waarde mee (100, 200, 300, 400)
+
+    if (results.value == Knopje1) {
+      knipper(100);
+    }
+
+    if (results.value == Knopje2) {
+      knipper(200);
+    }
+
+    if (results.value == Knopje3) {
+      knipper(300);
+    }
+
+    if (results.value == Knopje4) {
+      knipper(400);
+    }
+  }
+}
+
+
+// Functie die onthoudt welke 2 knoppen als eerst zijn ingedrukt en daarmee de bijbehorende LEDS onthoudt
+// Vul de meegestuurde variabele in (ledPin13, ledPin12, ledPin10, ledPin9)
+void Onthouden(int Ledje) {
+  //Zet de meegestuurde Ledje op HIGH
+  digitalWrite(Ledje, HIGH);
+
+  //Als de waarde van Onthouden1 nog leeg is voer dan deze code uit
+  if (Onthouden1 == 0) {
+    //Verander de waarde van Onthouden1 naar de meegestuurde Ledje en doe +1 bij ICounter
+    Onthouden1 = Ledje;
+    ICounter++;
+  }
+
+  //Als de waarde van Onthouden1 gevuld is voer dan deze code uit
+  else {
+    //Verander de waarde van Onthouden2 naar de meegestuurde Ledje en doe +1 bij ICounter
+    Onthouden2 = Ledje;
+    ICounter++;
+  }
+}
+
+//Functie die de knippertijd aanpast mbv millis
+void knipper(int knipperTijd) {
+
+  //Variabele aanmaken voor de huidigeTijd en vullen met de millis functie
+  unsigned long huidigeTijd = millis();
+  //Status van meegestuurde iGeheugen 1 & 2 invullen
+  int active1 = digitalRead(Onthouden1);
+  int active2 = digitalRead(Onthouden2);
+
+  //Als de huidigeTijd - VorigeKnipper >= knippertijd voer deze code uit
+  //Je wacht tot de millis functie de tijd heeft bereikt die gelijk is aan de meegegeven knipperTijd waarde
+  if (huidigeTijd - VorigeKnipper >= knipperTijd) {
+    VorigeKnipper = huidigeTijd;
+
+    //Voer deze code uit als active1 en active2 allebei LOW zijn
+    if (active1 == LOW && active2 == LOW) {
+      //Zet beide LedjeS aan
+      digitalWrite(Onthouden1, HIGH);
+      digitalWrite(Onthouden2, HIGH);
+    }
+    //Anders voer je deze code uit
+    else {
+      //Zet beide LedjeS uit
+      digitalWrite(Onthouden1, LOW);
+      digitalWrite(Onthouden2, LOW);
+    }
+  }
+}
