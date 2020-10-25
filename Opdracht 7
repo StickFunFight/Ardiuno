@@ -5,49 +5,42 @@ const int TrigPin = 12;
 const int EchoPin = 8;
 
 Servo MijnServo;
-int Positie =0;
+int Positie = 0;
 
 float Tijdsduur;
 float Afstand;
 
-    void setup() {
-//Voeg de servo toe op poort 11
-  MijnServo.attach(11);     
+void setup() {
+  //Voeg de servo toe op poort 11
+  MijnServo.attach(11);
   Serial.begin(9600);
   pinMode(TrigPin, OUTPUT);
   pinMode(EchoPin, INPUT);
-    }
-    
-    void loop() {
-    digitalWrite(TrigPin, LOW);
-    delay(100);
+}
 
-    digitalWrite(TrigPin, HIGH);
-    delay(100);
-    digitalWrite(TrigPin , LOW);
-//schrijft de tijdsduur naar het float tijdsduur.
-    Tijdsduur = pulseIn(EchoPin,HIGH);
-//tijdsduur door 58 delen dan heb je de afstand in cm.
-    Afstand = Tijdsduur / 58;
-    Serial.print(Afstand);
-    Serial.println("cm");
-    delay(100);
-//als de afstand tussen 10 en 4 is.
-if (Afstand <= 10 && Afstand >= 4)
-  { 
-  //tussen de 10 en 4 cm pakt tie een waarde van 180 tot 0.
+void loop() {
+  digitalWrite(TrigPin, LOW);
+  delay(100);
+
+  digitalWrite(TrigPin, HIGH);
+  delay(100);
+  digitalWrite(TrigPin , LOW);
+  //schrijft de tijdsduur naar het float tijdsduur.
+  Tijdsduur = pulseIn(EchoPin, HIGH);
+  //tijdsduur door 58 delen dan heb je de afstand in cm.
+  Afstand = Tijdsduur / 58;
+  Serial.print(Afstand);
+  Serial.println("cm");
+  delay(100);
+  //als de afstand tussen 10 en 4 is.
+  if (Afstand <= 10 && Afstand >= 4)
+  {
+    //tussen de 10 en 4 cm pakt tie een waarde van 180 tot 0.
     int PosAf = map(Afstand, 4, 10, 180, 0);
-//schrijft die positie naar de servo
+    //schrijft die positie naar de servo
     MijnServo.write(PosAf);
     delay(20);
 
-  
+  }
 
 }
-
-    }
-
-
-    
-    
-    
