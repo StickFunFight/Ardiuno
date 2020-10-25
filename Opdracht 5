@@ -23,10 +23,6 @@ int BlauwValue;
 void loop() {
 #define WachtTijd 7 //zet de wachttijd op 7.
 
-  RoodValue = 255;
-  GroenValue = 0;
-  BlauwValue = 0;
-
   //Zet de rode value van 255 naar 0.
   for (int i = 0; i < 255; i++) {
     RoodValue = RoodValue - 1;
@@ -38,9 +34,6 @@ void loop() {
     delay(WachtTijd);
   }
 
-  RoodValue = 0;
-  GroenValue = 255;
-  BlauwValue = 0;
   //Zet de Groene value van 255 naar 0.
   for (int i = 0; i < 255; i++) {
     GroenValue = GroenValue - 1;
@@ -51,10 +44,6 @@ void loop() {
 
     delay(WachtTijd);
   }
-
-  RoodValue = 0;
-  GroenValue = 0;
-  BlauwValue = 255;
 
   //Zet de Blauw value van 255 naar 0.
   for (int i = 0; i < 255; i++) {
